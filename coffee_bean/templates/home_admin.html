@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+
+{% block head_title %}home_admin{% endblock head_title %}
+{% block content %}
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3">
+
+	
+
+		{% csrf_token %}
+		{{form|crispy}}
+
+	
+		<input type="submit" value="Bean" class="btn btn-success">
+
+	
+	</div>
+</div>
+
+{% endblock content %}
