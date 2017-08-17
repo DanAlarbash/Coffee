@@ -25,9 +25,9 @@ class BeanForm(forms.ModelForm):
 		model = Bean
 		fields = ['name', 'price']
 
-class SyrupsForm(forms.ModelForm):
+class SyrupForm(forms.ModelForm):
 	class Meta:
-		model = Syrups
+		model = Syrup
 		fields = ['name', 'price']
 
 class PowderForm(forms.ModelForm):

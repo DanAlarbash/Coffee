@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+
+{% block head_title %}Bean Create{% endblock head_title %}
+{% block content %}
+<br><br>
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3">
+
+	<form method="POST" action="{% url 'coffee_bean:bean_create' %}" enctype="multipart/form-data">
+
+		{% csrf_token %}
+		{{form|crispy}}
+		
+	
+		<input type="submit" value="Create Bean">
+
+	</form>
+	</div>
+	</div>
+
+
+{% endblock content %}

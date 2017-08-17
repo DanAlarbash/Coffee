@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+
+{% block head_title %}Edit Syrup{% endblock head_title %}
+{% block content %}
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3">
+
+	<form method="POST" action="{% url 'coffee_bean:syrup_edit' slug=syrup_object.slug %}"enctype="multipart/form-data">
+
+		{% csrf_token %}
+		{{form|crispy}}
+	
+		<input type="submit" value="Edit Syrup" class="btn btn-success">
+
+	</form>
+	</div>
+</div>
+
+{% endblock content %}

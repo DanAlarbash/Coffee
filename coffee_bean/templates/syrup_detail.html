@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Syrup Detail{% endblock head_title %}
+
+{% block content %}
+<br><br>
+	 <div class="col-sm-6 col-sm-offset-3 ">
+		<div class="thumbnail">
+			
+			<h3>Syrup: {{obj.name}} Price: {{obj.price}} </h3>
+			Added By: {{username}}
+			<br>
+			<p>
+			<br>
+			<a href="{% url 'coffee_bean:syrup_edit' slug=obj.slug %}" class="btn btn-success">Edit</a>
+			<a href="{% url 'coffee_bean:syrup_delete' slug=obj.slug %}" class="btn btn-danger">Delete</a>
+			<a href="{% url 'coffee_bean:syrup_list' %}" class="btn btn-warning">Cancel</a>
+			</p>
+			
+		</div>
+	</div>
+
+{% endblock content %}

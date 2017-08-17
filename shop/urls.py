@@ -18,7 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'bean/', include('coffee_bean.urls', namespace="coffee_bean")),
+    url(r'^bean/', include('coffee_bean.urls', namespace="coffee_bean")),
 ]
 
 

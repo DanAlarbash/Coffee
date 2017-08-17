@@ -1,0 +1,27 @@
+
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Bean Detail{% endblock head_title %}
+
+{% block content %}
+<br><br>
+	 <div class="col-sm-6 col-sm-offset-3 ">
+		<div class="thumbnail">
+			
+			<h3>Bean: {{obj.name}} Price: {{obj.price}} </h3>
+			Added By: {{username}}
+			<br>
+			<p>
+			<br>
+			<a href="{% url 'coffee_bean:bean_edit' slug=obj.slug %}" class="btn btn-success">Edit</a>
+			<a href="{% url 'coffee_bean:bean_delete' slug=obj.slug %}" class="btn btn-danger">Delete</a>
+			<a href="{% url 'coffee_bean:bean_list' %}" class="btn btn-warning">Cancel</a>
+			</p>
+			
+		</div>
+	</div>
+
+{% endblock content %}
