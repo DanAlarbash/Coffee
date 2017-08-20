@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}Syrup List{% endblock head_title %}
+
+{% block content %}
+{% include "navbar.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Coffee Shop</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="{% url 'coffee_bean:bean_list' %}">Beans</a></li>
+      <li><a href="{% url 'coffee_bean:syrup_list' %}">Syrups</a></li>
+      <li><a href="{% url 'coffee_bean:powder_list' %}">Powders</a></li>
+      {# <li><a href="{% url 'coffee_bean:roast_list' %}">Roasts</a></li> #}
+      <li>
+        <form action="{% url 'coffee_bean:syrup_list' %}" method="Get">
+        <input type="text" class="navbar-btn" name="q" placeholder="Search syrups Here" value="{{request.GET.q}}">
+        <input type="submit" class="navbar-btn" value="Search" >
+        <a href="?page={{ syrup_list.number }}" class="btn navbar-btn">Clear Search</a>
+        <a href="{% url 'coffee_bean:syrup_create' %}" class="btn navbar-btn">Create Syrup</a>
+        </form>
+      </li>
+      <li><a href="{% url 'coffee_bean:login' %}">User Home</a></li>
+      <li><a href="{% url 'coffee_bean:logout' %}">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+</body>
+</html>
+
+
+ {% endblock content %}

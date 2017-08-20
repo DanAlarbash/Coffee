@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}Coffee List{% endblock head_title %}
+
+{% block content %}
+
+
+<div class="row">
+<br><br>
+<form action="{% url 'coffee_bean:coffee_list' %}" method="Get">
+	<input type="text" name="q" placeholder="Search Coffee Here" value="{{request.GET.q}}">
+	<input type="submit" value="Search">
+	<a href="?page={{ coffee_list.number }}" class="btn btn-primary">Clear Search</a>
+  <a href="{% url 'coffee_bean:coffee_create' %}" class="btn btn-warning">Create Coffee</a>
+
+</form>
+<br>
+
+{% for x in coffee_list %}
+  <div class="col-sm-6 ">
+    <div class="thumbnail">
+      <div class="caption">
+        <h3>Name: {{x.name}} || Price: {{x.price}} </h3>
+        
+        <p>
+        <a href="{{x.get_absolute_url}}" class="btn btn-primary">View</a> 
+        
+        <a href="{% url 'coffee_bean:coffee_edit' slug=x.slug %}" class="btn btn-success">Edit</a>
+        
+        <a href="{% url 'coffee_bean:coffee_delete' slug=x.slug %}" class="btn btn-danger">Delete</a>
+		
+        </p>
+      </div>
+    </div>
+  </div>
+ {% endfor %}
+ {% endblock content %}

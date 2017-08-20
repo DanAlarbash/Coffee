@@ -4,7 +4,7 @@
 {% block head_title %}Syrup List{% endblock head_title %}
 
 {% block content %}
-
+{% include "navbar.html" %}
 
 <div class="row">
 <br><br>
@@ -12,11 +12,11 @@
 	<input type="text" name="q" placeholder="Search syrups Here" value="{{request.GET.q}}">
 	<input type="submit" value="Search">
 	<a href="?page={{ syrup_list.number }}" class="btn btn-primary">Clear Search</a>
-  <a href="{% url 'coffee_bean:syrup_create' %}" class="btn btn-warning">Create Bean</a>
+  <a href="{% url 'coffee_bean:syrup_create' %}" class="btn btn-warning">Create Syrup</a>
 
 </form>
 <br>
-
+<h1> Syrup List </h1>
 {% for x in syrup_list %}
   <div class="col-sm-6 ">
     <div class="thumbnail">

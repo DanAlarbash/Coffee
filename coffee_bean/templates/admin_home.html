@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+
+
+{% block head_title %}Admin{% endblock head_title %} 
+
+{% block content %}
+
+<center>
+<div class="row">
+<br><br><br>
+  <div class="col-sm-6 col-sm-offset-3 ">
+
+  <h1> Contents </h1><br>
+    <div class="thumbnail">
+      <div class="caption">
+
+
+
+        {% if request.user.is_staff or request.user.is_superuser %}
+        <p>
+        <h2> Beans  
+        <a href="{% url 'coffee_bean:bean_list' %}" class="btn btn-default">Go</a></h2>
+        Add, Edit or Delete Beans
+        <br><br>
+        <h2> Syrups 
+        <a href="{% url 'coffee_bean:syrup_list' %}" class="btn btn-default">Go</a></h2>
+        Add, Edit or Delete Syrups
+        <br><br>
+        <h2> Powders 
+        <a href="{% url 'coffee_bean:powder_list' %}" class="btn btn-default">Go</a></h2>
+        Add, Edit or Delete Powders
+        <br><br>
+        <h2> Roasts </h2> 
+        {# <a href="{% url 'coffee_bean:roast_list' %}" class="btn">Go</a> #}
+        Add, Edit or Delete Roasts
+        <br><br>
+        </p>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<center>
+{% endblock %}

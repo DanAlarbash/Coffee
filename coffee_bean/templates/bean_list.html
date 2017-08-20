@@ -4,7 +4,7 @@
 {% block head_title %}Beans List{% endblock head_title %}
 
 {% block content %}
-
+{% include "navbar.html" %}
 
 <div class="row">
 <br><br>
@@ -16,12 +16,12 @@
 
 </form>
 <br>
-
+<h1> Bean List </h1>
 {% for x in bean_list %}
   <div class="col-sm-6 ">
     <div class="thumbnail">
       <div class="caption">
-        <h3>Bean: {{x.name}} Price: {{x.price}} </h3>
+        <h3>Bean:{{x.name}} Price: {{x.price}} </h3>
         
         <p>
         <a href="{{x.get_absolute_url}}" class="btn btn-primary">View</a> 

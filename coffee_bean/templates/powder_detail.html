@@ -1,0 +1,28 @@
+
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Powder Detail{% endblock head_title %}
+
+{% block content %}
+{% include "navbar.html" %}
+<br><br>
+	 <div class="col-sm-6 col-sm-offset-3 ">
+		<div class="thumbnail">
+			
+			<h3>Powder: {{obj.name}} Price: {{obj.price}} </h3>
+			Added By: {{username}}
+			<br>
+			<p>
+			<br>
+			<a href="{% url 'coffee_bean:powder_edit' slug=obj.slug %}" class="btn btn-success">Edit</a>
+			<a href="{% url 'coffee_bean:powder_delete' slug=obj.slug %}" class="btn btn-danger">Delete</a>
+			<a href="{% url 'coffee_bean:powder_list' %}" class="btn btn-warning">Cancel</a>
+			</p>
+			
+		</div>
+	</div>
+
+{% endblock content %}

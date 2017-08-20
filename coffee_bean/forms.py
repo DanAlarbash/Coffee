@@ -23,7 +23,7 @@ class UserLogin(forms.Form):
 class BeanForm(forms.ModelForm):
 	class Meta:
 		model = Bean
-		fields = ['name', 'price']
+		fields = '__all__'
 
 class SyrupForm(forms.ModelForm):
 	class Meta:
@@ -39,3 +39,14 @@ class RoastForm(forms.ModelForm):
 	class Meta:
 		model = Roast
 		fields = ['name', 'price']
+
+
+class CoffeeForm(forms.ModelForm):
+	class Meta:
+		model = Coffee
+		fields = ['name','bean', 'roast', 'powder', 'syrup', 'water', 'foam', 'milk', 'shots', 'extra_instructions' ]
+		#coffee = forms.MultipleChoiceField(Coffee.objects.all(), widget=forms.CheckboxSelectMultiple)
+
+
+
+    

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Coffee Detail{% endblock head_title %}
+
+{% block content %}
+<br><br>
+	 <div class="col-sm-6 col-sm-offset-3 ">
+		<div class="thumbnail">
+			
+			<h3>Name: {{obj.name}} || Price: {{obj.price}} </h3>
+			Created By: {{username}}
+			<br><br>
+
+			<ul>
+			<li>Bean: {{obj.bean}}	</li>
+			<li>Roast:	{{obj.roast}} </li>
+
+			<li>Syrup(s): {% for x in syrp %} {{x}}, {% endfor %} </li>
+			<li>Powder(s):	{% for y in powd %} {{y}}, {% endfor %} </li>
+
+			<li>Water:	{{obj.water}} </li>
+			<li>Foam:	{{obj.foam}} </li>
+			<li>Steamed Milk: {{obj.milk}} </li>
+			<li>Shots:	{{obj.shots}} </li>
+			<li>Extra Instructions: {{extra_instructions}}</li>
+			</ul>
+
+
+
+			<p>
+			<br>
+			{% if user == username %}
+			<a href="{% url 'coffee_bean:coffee_edit' slug=obj.slug %}" class="btn btn-success">Edit</a>
+			<a href="{% url 'coffee_bean:coffee_delete' slug=obj.slug %}" class="btn btn-danger">Delete</a>
+			{% endif %}
+			<a href="{% url 'coffee_bean:coffee_list' %}" class="btn btn-warning">Cancel</a>
+			</p>
+			
+		</div>
+	</div>
+
+{% endblock content %}
