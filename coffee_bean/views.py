@@ -9,6 +9,9 @@ from django.http import Http404, JsonResponse
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 from decimal import Decimal
+from django.contrib.auth.models import User
+import json
+
 
 # Create your views here.
 
@@ -36,7 +39,7 @@ def usersignup(request):
 
 def userlogout(request):
 	logout(request)
-	return redirect("coffee_bean:login")
+	return redirect("coffee_bean:home")
 
 
 def userlogin(request):
@@ -53,7 +56,7 @@ def userlogin(request):
 			auth_user = authenticate(username=username, password=password)
 			if auth_user is not None:
 				login(request, auth_user)
-				return redirect("coffee_bean:bean_list")
+				return redirect("coffee_bean:coffee_list")
 
 			messages.warning(request, "Wrong username/password combination. Please try again.")
 			return redirect("coffee_bean:login")
@@ -64,7 +67,7 @@ def userlogin(request):
 
 
 def home(request):
-	return HttpResponse("<h1> Welcome to the Coffee shop</h1>")
+	return render(request, "welcome.html")
 
 def admin_home(request):
 	if not (request.user.is_staff or request.user.is_superuser):
@@ -333,8 +336,7 @@ def coffee_list(request):
 	query = request.GET.get("q")
 	if query:
 		obj_list = obj_list.filter(
-			Q(name__icontains=query)|
-			Q(user__icontains=query)
+			Q(name__icontains=query)
 			).distinct()
 
 	
@@ -403,7 +405,7 @@ def coffee_delete(request, slug):
 
 def coffee_detail(request, slug):
 	obj =  get_object_or_404(Coffee, slug=slug)
-	username = request.user
+	username = obj.user
 	syrp = obj.syrup.all()
 	powd = obj.powder.all()
 	context = {
@@ -414,6 +416,129 @@ def coffee_detail(request, slug):
 	}
 	return render(request, 'coffee_detail.html', context)
 
+
+
+def my_coffee(request):
+	username = request.user
+	my_list = Coffee.objects.all().filter(user=username)
+	query = request.GET.get("q")
+	if query:
+		my_list = my_list.filter(
+		Q(name__icontains=query)
+		).distinct()
+
+	context = {
+	"my_list": my_list,
+	"username":username,
+	}
+	return render(request, 'my_coffee.html', context)
+
+# def address(request):
+# 	form = AddressForm(request.POST or None, request.FILES or None)
+# 	if form.is_valid():
+# 		obj = form.save(commit=False)
+# 		obj.author = request.user
+# 		obj.save()
+# 		messages.success(request, "Address created!")
+# 		return redirect("coffee_bean:address_list")
+# 	context = {
+# 		"form":form,
+# 	}
+# 	return render(request, 'address.html', context)
+
+
+
+# def address_list(request):
+# 	username = request.user
+# 	add_list = Address.objects.all().filter(user=username)
+# 	context = {
+# 		"add_list": add_list,
+# 	}
+# 	return render(request, 'address_list.html', context)
+
+
+# def address_edit(request, slug):
+# 	address_obj = get_object_or_404(Address, slug=slug)
+# 	form = AddressForm(request.POST or None, request.FILES or None, instance=address_obj)
+# 	if form.is_valid():
+# 		form.save()
+# 		messages.success(request, "Address Updated!")
+# 		return redirect("coffee_bean:address_list")
+# 	context = {
+# 		"form":form,
+# 		"address_obj":address_obj,
+# 	}
+# 	return render(request, 'address_edit.html', context)
+
+
+# def address_delete(request, slug):
+# 	obj = Address.objects.get(slug=slug).delete()
+# 	messages.warning(request, "Address Deleted.")
+# 	return redirect("coffee_bean:address_list")
+
+
+def city_create(request):
+
+	form = CityForm(request.POST or None, request.FILES or None)
+	if form.is_valid():
+		obj = form.save(commit=False)
+		obj.author = request.user
+		obj.save()
+		messages.success(request, "City added!")
+		return redirect("coffee_bean:city_list")
+	context = {
+		"form":form,
+	}
+	return render(request, 'city_create.html', context)
+
+
+def city_list(request):
+
+	city_list = City.objects.all()
+	context = {
+		"city_list": city_list,	
+	}
+	return render(request, 'city_list.html', context)
+
+def city_delete(request, slug):
+	obj = City.objects.get(slug=slug).delete()
+	messages.warning(request, "City Deleted.")
+	return redirect("coffee_bean:city_list")
+
+
+
+
+def price_calculation(request):
+	total = Decimal(0)
+
+
+	bean_id = request.GET.get('bean')
+	if bean_id:
+		total+= Bean.objects.get(id=bean_id).price
+	#print ("Bean Id %s"%bean_id)
+
+	roast_id = request.GET.get('roast')
+	if roast_id:
+		total+= Roast.objects.get(id=roast_id).price
+
+	shots = request.GET.get('shots')
+	if shots:
+		total += int(shots) * Decimal(0.200)
+
+	milk = request.GET.get('milk')
+	if milk == 'true':
+		total += Decimal(0.250)
+
+	syrups = json.loads(request.GET.get('syrups'))
+	for syrup in syrups:
+		total += Syrup.objects.get(id=syrup).price
+
+	powders = json.loads(request.GET.get('powders'))
+	for powder in powders:
+		total += Powder.objects.get(id=powder).price
+
+	print (round(total, 3))
+	return JsonResponse(round(total, 3), safe=False)
 
 
 

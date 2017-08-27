@@ -47,6 +47,17 @@ class CoffeeForm(forms.ModelForm):
 		fields = ['name','bean', 'roast', 'powder', 'syrup', 'water', 'foam', 'milk', 'shots', 'extra_instructions' ]
 		#coffee = forms.MultipleChoiceField(Coffee.objects.all(), widget=forms.CheckboxSelectMultiple)
 
+class CityForm(forms.ModelForm):
+	class Meta:
+		model = City
+		fields = ['name']
+
+class AddressForm(forms.ModelForm):
+	class Meta:
+		model = Address
+		fields = '__all__'
+		exclude = ['user', 'slug']
+
 
 
     

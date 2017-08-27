@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block head_title %}Beans List{% endblock head_title %}
+
+{% block content %}
+
+
+
+
+
+<h1> City List </h1> 
+<a href="{% url 'coffee_bean:city_create' %}" class="btn btn-default">Add City</a>
+
+<br><br>
+<div class="row">
+<div class="container">        
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+      	{% for x in city_list %}
+        <td><h4>{{x.name}}</h4></td>
+        <td><a href="{% url 'coffee_bean:city_delete' slug=x.slug %}" class="btn btn-danger">Delete</a></td>
+         {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+  {% endblock content %}
+
+
+
+
+
+
+  

@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'coffee_bean'
+    'coffee_bean',
+    'cart',
+    'payment',
 
 
 ]

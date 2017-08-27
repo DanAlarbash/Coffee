@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br>
+	
+<div class="jumbotron">
+  <h1 class="display-3">Welcome to the Coffee Shop!</h1>
+  <p class="lead">At our coffee shop you get to create your own coffee by choosing Bean, Roast, Syrups and all other ingredients.</p>
+  <hr class="my-4">
+  <p>Login and give it a try. Or Sign up if you are not registered yet!</p>
+
+  <p class="lead">
+    <div class="row justify-content-md-center">
+	<div class="col-6">
+	<form method="POST" action="{% url 'coffee_bean:login' %}"enctype="multipart/form-data">
+
+		{% csrf_token %}
+		{{form|crispy}}
+
+	
+		<input type="submit" value="Login" class="btn btn-secondary btn-block">
+
+	</form>
+
+<br>
+
+	<form method="POST" action="{% url 'coffee_bean:signup' %}"enctype="multipart/form-data">
+
+		{% csrf_token %}
+		{{form|crispy}}
+
+	
+		<input type="submit" value="Signup" class="btn btn-secondary btn-block">
+
+	</form>
+
+	</div>
+</div>
+  </p>
+</div>
+
+
+{% endblock content %}

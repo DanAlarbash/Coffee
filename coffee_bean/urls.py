@@ -44,11 +44,23 @@ urlpatterns = [
 	url(r'^coffee_edit/(?P<slug>[-\w]+)/$', views.coffee_edit, name="coffee_edit"),
 	url(r'^coffee_delete/(?P<slug>[-\w]+)/$', views.coffee_delete, name="coffee_delete"),
 	url(r'^coffee_detail/(?P<slug>[-\w]+)/$', views.coffee_detail, name="coffee_detail"),
+	url(r'^my_coffee/$', views.my_coffee, name="my_coffee"),
+
+
+	# url(r'^address/$', views.address, name="address"),
+	# url(r'^address_edit/(?P<slug>[-\w]+)/$', views.address_edit, name="address_edit"),
+	# url(r'^address_list/$', views.address_list, name="address_list"),
+	# url(r'^address_delete/(?P<slug>[-\w]+)/$', views.address_delete, name="address_delete"),
+
+
+
+	url(r'^city_create/$', views.city_create, name="city_create"),
+	url(r'^city_list/$', views.city_list, name="city_list"),
+	url(r'^city_delete/(?P<slug>[-\w]+)/$', views.city_delete, name="city_delete"),
 
 
 
 
-
-	
+	url(r'^price_calculation/$', views.price_calculation, name="price_calculation"),
 
 ]

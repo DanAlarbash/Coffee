@@ -13,19 +13,96 @@
 	<h1> Create Coffee </h1>
 	<br><br>
 
-	<form method="POST" action="{% url 'coffee_bean:coffee_create' %}" enctype="multipart/form-data">
+	<form method="POST" action="{% url 'coffee_bean:coffee_create' %}" enctype="multipart/form-data" onchange="price()">
 
 
 
 		{% csrf_token %}
 		{{form|crispy}}
 		
-	
+		<h3>Price: <span id="total">0.000</span> KWD</h3>
 		<input type="submit" value="Create Create">
-
+		<br><br>
 	</form>
 	</div>
 	</div>
+
+
+<script>
+
+function price(){
+
+
+	var shots = document.getElementById("id_shots").value;
+
+	var milk = document.getElementById("id_milk").checked;
+	console.log(shots);
+	console.log(milk);
+
+
+
+	var bean = document.getElementById("id_bean");
+	var bean_id = bean[bean.selectedIndex].value;
+
+	var roast = document.getElementById("id_roast");
+	var roast_id = roast[roast.selectedIndex].value;
+	console.log(bean_id);
+	console.log(roast_id);
+
+	var syrups = document.getElementById("id_syrup");
+	var selected_syrups = [];
+
+	for (var i = 0; i<syrups.length; i++)
+	{
+		if (syrups.options[i].selected)
+        {
+	    	selected_syrups.push(syrups.options[i].value);
+        }
+
+	}
+	console.log(selected_syrups)
+
+
+	var powders = document.getElementById("id_powder");
+	var selected_powders = [];
+	for (var i = 0; i<powders.length; i++)
+
+	{
+		if (powders.options[i].selected)
+        {
+	    	selected_powders.push(powders.options[i].value);
+        }
+
+	}
+	console.log(selected_powders);
+	
+	$.ajax({
+		type:'GET',
+		url: '{% url "coffee_bean:price_calculation" %}',
+		data: {
+			bean: bean_id,
+			roast: roast_id,
+			shots: shots,
+			milk: milk,
+			syrups: JSON.stringify(selected_syrups),
+			powders: JSON.stringify(selected_powders), 
+		},
+		error: function(){
+			console.log("something weird happened");
+
+		},
+
+		success:function(data){
+			console.log(data);
+			document.getElementById("total").innerHTML=data;
+
+		}
+
+	});
+
+	}
+
+</script>
 
 
 {% endblock content %}

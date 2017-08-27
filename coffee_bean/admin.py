@@ -40,6 +40,10 @@ class CoffeeModelAdmin(admin.ModelAdmin):
 		class Meta:
 			model = Coffee
 
+class CityModelAdmin(admin.ModelAdmin):
+	list_display = ['name']
+	class Meta:
+		model = City
 
 
 admin.site.register(Bean, BeanModelAdmin)
@@ -47,4 +51,6 @@ admin.site.register(Roast, RoastModelAdmin)
 admin.site.register(Powder, PowderModelAdmin)
 admin.site.register(Syrup, SyrupModelAdmin)
 admin.site.register(Coffee, CoffeeModelAdmin)
+admin.site.register(City, CityModelAdmin)
+admin.site.register(Address)
 

@@ -10,7 +10,7 @@
 		<div class="thumbnail">
 			
 			<h3>Name: {{obj.name}} || Price: {{obj.price}} </h3>
-			Created By: {{username}}
+			Created By: {{obj.user}}
 			<br><br>
 
 			<ul>
@@ -24,19 +24,25 @@
 			<li>Foam:	{{obj.foam}} </li>
 			<li>Steamed Milk: {{obj.milk}} </li>
 			<li>Shots:	{{obj.shots}} </li>
-			<li>Extra Instructions: {{extra_instructions}}</li>
+			<li>Extra Instructions: {{obj.extra_instructions}}</li>
 			</ul>
 
 
 
 			<p>
-			<br>
-			{% if user == username %}
+			{% if request.user.is_staff or request.user.is_superuser or request.user == username %}
+			
 			<a href="{% url 'coffee_bean:coffee_edit' slug=obj.slug %}" class="btn btn-success">Edit</a>
 			<a href="{% url 'coffee_bean:coffee_delete' slug=obj.slug %}" class="btn btn-danger">Delete</a>
 			{% endif %}
 			<a href="{% url 'coffee_bean:coffee_list' %}" class="btn btn-warning">Cancel</a>
 			</p>
+			
+			<form action="{% url 'cart:mycart' %}" method="GET">
+		      <input type="hidden" name="item" value="{{obj.id}}">
+		      <input type="number" name="qty" value="1">
+		      <input type="submit" name="btn btn-success" value="Add to cart">
+		     </form>
 			
 		</div>
 	</div>

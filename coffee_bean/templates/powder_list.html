@@ -4,19 +4,12 @@
 {% block head_title %}Powder List{% endblock head_title %}
 
 {% block content %}
-{% include "navbar.html" %}
 
-<div class="row">
-<br><br>
-<form action="{% url 'coffee_bean:powder_list' %}" method="Get">
-	<input type="text" name="q" placeholder="Search Powders Here" value="{{request.GET.q}}">
-	<input type="submit" value="Search">
-	<a href="?page={{ powder_list.number }}" class="btn btn-primary">Clear Search</a>
-  <a href="{% url 'coffee_bean:powder_create' %}" class="btn btn-warning">Create Powder</a>
 
-</form>
+
 <br>
 <h1> Powder List </h1>
+<div class="row"><br>
 {% for x in powder_list %}
   <div class="col-sm-6 ">
     <div class="thumbnail">
@@ -36,3 +29,13 @@
   </div>
  {% endfor %}
  {% endblock content %}
+
+
+{% block form %}
+      <form class="form-inline" action="{% url 'coffee_bean:powder_list' %}" method="Get">
+      <a href="{% url 'coffee_bean:powder_create' %}" class="btn">Create Powder</a>
+      <input class="form-control nav-buttons" type="text" name="q" placeholder="Search Powders Here" value="{{request.GET.q}}" aria-label="Search">
+      <button class="btn btn-outline-success nav-buttons" type="submit">Search</button>
+      <a href="?page={{ powder_list.number }}" class="btn btn-outline-success">Clear Search</a>
+    </form>
+{% endblock form %}

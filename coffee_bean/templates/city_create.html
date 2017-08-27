@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %} 
+
+
+{% block head_title %}City List{% endblock head_title %}
+
+{% block content %}
+
+
+<div class="row">
+<br><br>
+<div class="col-sm-6 col-sm-offset-3">
+<h1> Create City </h1><br>
+
+
+<form method="POST" action="{% url 'coffee_bean:city_create' %}" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{form|crispy}}
+<input type="submit" value="Add City">
+<a href="{% url 'coffee_bean:city_list' %}">City List</a>
+<br><br>
+
+
+{% endblock content %}

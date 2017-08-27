@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %} 
+
+
+
+{% block head_title %}Select Address{% endblock head_title %}
+{% block content %}
+
+<br><br>
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3">
+
+	<h1> Select Address </h1>
+	<br><br>
+
+	<form method="POST" action="{% url 'cart:select_address' %}" enctype="multipart/form-data">
+
+		{% csrf_token %}
+		{{form|crispy}}
+		
+	
+		<input type="submit" value="Select Address"> 
+		<a href="{% url 'cart:create_address' %}" class="btn btn-default">Add Address</a>
+		<br><br>
+	</form>
+	</div>
+	</div>
+
+
+{% endblock content %}

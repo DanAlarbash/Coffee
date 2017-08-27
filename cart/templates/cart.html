@@ -1,0 +1,53 @@
+ {% extends "base.html" %}
+{% load crispy_forms_tags %} 
+
+
+{% block head_title %}My Cart{% endblock head_title %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12">
+	{% if cart.cartitem_set.count < 1 %}
+		<br><h1> Your cart is empty! <small> Please continue shoppping.</small></h1>
+	{% else %}
+		<br><h2>Your Cart: </h2>
+		<table class= "table">
+			<tr>
+				<th>Item</th>
+				<th></th>
+				<th>Qty</th>
+				<th>Price</th>
+				<th>Delete item</th>
+				{% for item in cart.cartitem_set.all %}
+				<tr>
+					<td>{{item.items.name}}</td>
+					<td>
+						<form action="{% url 'cart:mycart' %}" method="GET">
+					      <input type="hidden" name="item" value="{{item.items.id}}">
+					      <input type="number" name="qty" value="{{item.quantitiy}}">
+					      <input type="submit" class="btn btn-outline-success" value="Update Item">
+					     </form>
+					</td>
+					<td>{{item.quantitiy}}</td>
+					<td>{{item.line_item_total}}</td>
+					<td>
+						<form action="{% url 'cart:mycart' %}" method="GET">
+						<input type="hidden" name="item" value="{{item.items.id}}">
+						<input type="hidden" name="qty" value="0">
+						<input type="submit" class="btn btn-outline-danger" value="Delete Item">
+					</form>
+					</td>
+				</tr>
+			{% endfor %}
+			<tr><td>Subtotal: {{cart.subtotal}} KD</td></tr>
+			<tr><td>Delivery: {{cart.delivery_total}} KD</td></tr>
+			<tr><td>Total: {{cart.total}} KD</td></tr>
+			<tr><td><a href="{% url 'cart:checkout' %}" class="btn btn-success">Pay</a></td></tr>
+
+		</table>
+		{% endif %}
+	</div>
+</div>
+
+
+{% endblock content %}

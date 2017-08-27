@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %} 
+
+
+
+{% block head_title %}Create Address{% endblock head_title %}
+{% block content %}
+
+<br><br>
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3">
+
+	<h1> Create Address </h1>
+	<br><br>
+
+	<form method="POST" action="{% url 'cart:create_address' %}" enctype="multipart/form-data">
+
+		{% csrf_token %}
+		{{form|crispy}}
+		
+	
+		<input type="submit" value="Create Address"> <br><br>
+
+	</form>
+	</div>
+	</div>
+
+
+{% endblock content %}
